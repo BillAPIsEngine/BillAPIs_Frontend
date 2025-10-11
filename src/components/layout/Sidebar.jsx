@@ -18,6 +18,7 @@ const navigation = [
   { name: 'Analytics', href: '/analytics', icon: BarChart3 },
   { name: 'Consumers', href: '/consumers', icon: Users },
   { name: 'ML Configuration', href: '/ml-config', icon: Brain },
+  { name: 'Billing Assistant', href: '/chat', icon: MessageCircle },
 ]
 
 export default function Sidebar({ open, setOpen }) {
