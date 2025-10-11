@@ -101,4 +101,13 @@ export const consumerService = {
     api.get(`/billing/consumers/${consumerId}/invoice`, { params: { billing_cycle: billingCycle } }),
 }
 
+
+export const nlpService = {
+  chatWithAssistant: (data) => api.post('/nlp/chat', data),
+  clearConversation: (conversationId) => api.post(`/nlp/chat/${conversationId}/clear`),
+  getConversationStats: (conversationId) => api.get(`/nlp/chat/${conversationId}/stats`),
+  parseBillingIntent: (data) => api.post('/nlp/parse-billing-intent', data),
+  validateBillingLogic: (data) => api.post('/nlp/validate-billing-logic', data),
+}
+
 export default api
