@@ -1,9 +1,10 @@
 import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { useAuth } from './contexts/AuthContext'
+import { AuthProvider, useAuth } from './contexts/AuthContext'
+import { AppProvider } from './contexts/AppContext'
 import { ChatProvider } from './contexts/ChatContext'
+import { SearchProvider } from './contexts/SearchContext'
 import Layout from './components/layout/Layout'
-import FloatingChatWidget from './components/chat/FloatingChatWidget'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Connectors from './pages/Connectors'
@@ -29,28 +30,33 @@ function AppContent() {
   }
 
   return (
-    <ChatProvider>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/connectors" element={<Connectors />} />
-          <Route path="/billing" element={<Billing />} />
-          <Route path="/analytics" element={<Analytics />} />
-          <Route path="/consumers" element={<Consumers />} />
-          <Route path="/ml-config" element={<MLConfig />} />
-          <Route path="/chat" element={<ChatPage />} />
-        </Routes>
-        
-        {/* Global Floating Chat Widget */}
-        <FloatingChatWidget />
-      </Layout>
-    </ChatProvider>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/connectors" element={<Connectors />} />
+        <Route path="/billing" element={<Billing />} />
+        <Route path="/analytics" element={<Analytics />} />
+        <Route path="/consumers" element={<Consumers />} />
+        <Route path="/ml-config" element={<MLConfig />} />
+        <Route path="/chat" element={<ChatPage />} />
+      </Routes>
+    </Layout>
   )
 }
 
 function App() {
-  return <AppContent />
+  return (
+    <AuthProvider>
+      <AppProvider>
+        <SearchProvider>
+          <ChatProvider>
+            <AppContent />
+          </ChatProvider>
+        </SearchProvider>
+      </AppProvider>
+    </AuthProvider>
+  )
 }
 
 export default App
